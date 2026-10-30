@@ -306,40 +306,157 @@ section p {
   gap: 24px;
 }
 
-.song-list li {
+/* one song card: [play button] [title + slider] [time] */
+.track {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px 20px;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 28px 32px;
+  padding: 22px 24px;
   backdrop-filter: blur(6px); /* frosted-glass look */
+  transition: border-color 0.4s, box-shadow 0.4s;
 }
 
-.song-list h3 {
-  margin: 0;
-  font-size: 1.75rem;
+/* the card glows softly while its song plays */
+.track.playing {
+  border-color: rgba(242, 179, 107, 0.4);
+  box-shadow: 0 0 40px rgba(242, 179, 107, 0.08);
 }
 
-.song-list p {
-  margin: 4px 0 16px;
+.track h3 {
+  margin: 0 0 6px;
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.track .subtitle {
+  font-style: italic;
+  font-size: 0.75em;
   color: var(--text-soft);
 }
 
-/* the "Listen" links look like small buttons */
-.song-list a {
-  display: inline-block;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  padding: 8px 22px;
+.track .time {
   font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums; /* digits don't jiggle as they change */
 }
 
-.song-list a:hover {
-  background: var(--accent);
-  color: var(--midnight);
+/* Before the player script runs, show the browser's own player instead */
+.track:not(.ready) .play,
+.track:not(.ready) .seek,
+.track:not(.ready) .time {
+  display: none;
+}
+
+.track audio {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.track.ready audio {
+  display: none;
+}
+
+/* ---------- Play / pause button ---------- */
+.play {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+/* the play triangle, drawn with CSS */
+.play::before {
+  content: "";
+  width: 14px;
+  height: 16px;
+  margin-left: 3px;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+/* while playing, the triangle becomes two pause bars */
+.track.playing .play::before {
+  width: 12px;
+  height: 14px;
+  margin-left: 0;
+  clip-path: polygon(0 0, 35% 0, 35% 100%, 0 100%, 0 0, 65% 0, 100% 0, 100% 100%, 65% 100%, 65% 0);
+}
+
+.play:hover,
+.track.playing .play {
+  background: rgba(242, 179, 107, 0.1);
   box-shadow: 0 0 24px var(--accent-glow);
-  opacity: 1;
+}
+
+.play:focus-visible,
+.seek:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- Progress slider ---------- */
+.seek {
+  --progress: 0%;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 18px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* the thin line: amber for the part already played, faint for the rest */
+.seek::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent) var(--progress), rgba(232, 228, 218, 0.15) var(--progress));
+}
+
+.seek::-moz-range-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent) var(--progress), rgba(232, 228, 218, 0.15) var(--progress));
+}
+
+/* the small dot you can drag */
+.seek::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.seek::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.preview-note {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-soft);
 }
 
 /* =========================================================
