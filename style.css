@@ -1,0 +1,420 @@
+/* =========================================================
+   1. COLOURS  ("urban twilight")
+   All colours live here, so you can change them in one place.
+   ========================================================= */
+:root {
+  --midnight: #0b1426;      /* deep dusk-blue background */
+  --midnight-deep: #070d1a; /* even darker blue, for the edges */
+  --card: rgba(255, 255, 255, 0.04); /* see-through panels */
+  --line: rgba(232, 228, 218, 0.12); /* faint dividing lines */
+  --text: #e8e4da;          /* soft off-white text */
+  --text-soft: #a9b3c4;     /* quieter, blue-grey text */
+  --accent: #f2b36b;        /* warm streetlight amber: name, links, buttons */
+  --accent-glow: rgba(242, 179, 107, 0.28); /* soft amber glow */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* menu links glide instead of jumping */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================================================
+   2. PAGE BACKGROUND: hazy blue dusk with city light at the bottom
+   ========================================================= */
+body {
+  margin: 0;
+  color: var(--text);
+  background-color: var(--midnight);
+  /* Layers, top to bottom: blue haze in the sky, side haze,
+     a low warm glow like city lights on the horizon, and the base blue */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(58, 90, 134, 0.42), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 0% 55%, rgba(58, 90, 134, 0.16), transparent 70%),
+    radial-gradient(ellipse 90% 35% at 50% 105%, rgba(242, 160, 80, 0.14), transparent 70%),
+    linear-gradient(180deg, var(--midnight) 0%, var(--midnight-deep) 100%);
+  background-attachment: fixed; /* the haze stays still while you scroll */
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+/* A slow-drifting layer of haze behind everything */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(169, 190, 222, 0.09), transparent 40%),
+    radial-gradient(circle at 70% 75%, rgba(242, 179, 107, 0.05), transparent 45%);
+  filter: blur(40px);
+  animation: drift 40s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from { transform: translate(-3%, -2%) scale(1); }
+  to   { transform: translate(3%, 2%) scale(1.08); }
+}
+
+/* =========================================================
+   3. FONTS
+   ========================================================= */
+h1, h2, h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 300;
+  color: var(--text);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s, opacity 0.3s;
+}
+
+a:hover {
+  opacity: 0.75;
+}
+
+/* =========================================================
+   4. HEADER
+   ========================================================= */
+header {
+  min-height: 90vh; /* fills almost the whole first screen */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 16px;
+}
+
+header h1 {
+  font-family: "Italiana", serif; /* elegant, airy display font for your name */
+  font-weight: 400;
+  font-size: clamp(4rem, 15vw, 8rem);
+  letter-spacing: 0.12em;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--accent);
+  /* a soft glow, like light from a streetlamp */
+  text-shadow: 0 0 36px var(--accent-glow);
+  animation: fadeIn 2.5s ease both;
+}
+
+.tagline {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--text-soft);
+  margin: 12px 0 0;
+  animation: fadeIn 2.5s ease 0.6s both;
+}
+
+nav {
+  margin-top: 56px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  animation: fadeIn 2.5s ease 1.2s both;
+}
+
+nav a {
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+
+nav a:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+/* =========================================================
+   5. SECTIONS (lots of space so it feels calm)
+   ========================================================= */
+section {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 120px 16px;
+}
+
+/* About and Gallery get more room for photos */
+#about,
+#gallery {
+  max-width: 1040px;
+}
+
+/* a thin, fading line between sections instead of a hard border */
+section + section::before {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 1px;
+  margin: -120px auto 120px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+section h2 {
+  font-size: clamp(2.25rem, 6vw, 3rem);
+  letter-spacing: 0.05em;
+  margin: 0 0 48px;
+  text-align: center;
+}
+
+section p {
+  margin: 0 0 1.5em;
+}
+
+/* =========================================================
+   6. ABOUT: photo next to the bio
+   ========================================================= */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr;   /* phones: photo on top, text below */
+  gap: 40px;
+  align-items: center;
+}
+
+.about-photo {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+/* wider screens: photo on the left, text on the right */
+@media (min-width: 760px) {
+  .about-layout {
+    grid-template-columns: 2fr 3fr;
+    gap: 64px;
+  }
+}
+
+/* =========================================================
+   7. GALLERY
+   ========================================================= */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* phones: two per row */
+  gap: 12px;
+}
+
+@media (max-width: 340px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;          /* very small phones: one per row */
+  }
+}
+
+@media (min-width: 760px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr); /* computers: three per row */
+    gap: 20px;
+  }
+}
+
+.gallery-grid a {
+  display: block;
+  overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 4 / 5;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+/* hovering a photo zooms it slightly and warms it a little */
+.gallery-grid a:hover {
+  opacity: 1;
+}
+
+.gallery-grid a:hover img {
+  transform: scale(1.04);
+  filter: brightness(1.08);
+}
+
+/* ---------- Large photo view (lightbox) ---------- */
+.lightbox {
+  display: none;               /* hidden until its photo is clicked */
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(5, 9, 18, 0.92);
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* ":target" means "the element whose id is in the address bar right now" */
+.lightbox:target {
+  display: flex;
+  animation: lightboxIn 0.4s ease;
+}
+
+.lightbox img {
+  max-height: 90vh;
+  width: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
+  pointer-events: none; /* clicks pass through to the close link behind */
+}
+
+/* the close link covers the whole screen, so a click anywhere closes */
+.lightbox-close {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 12px 24px;
+  font-size: 2.75rem;
+  line-height: 1;
+  color: var(--text);
+}
+
+@keyframes lightboxIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* =========================================================
+   8. MY SONGS
+   ========================================================= */
+.song-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 24px;
+}
+
+.song-list li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px 32px;
+  backdrop-filter: blur(6px); /* frosted-glass look */
+}
+
+.song-list h3 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.song-list p {
+  margin: 4px 0 16px;
+  color: var(--text-soft);
+}
+
+/* the "Listen" and social links look like small buttons */
+.song-list a,
+.socials a {
+  display: inline-block;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 8px 22px;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.song-list a:hover,
+.socials a:hover {
+  background: var(--accent);
+  color: var(--midnight);
+  box-shadow: 0 0 24px var(--accent-glow);
+  opacity: 1;
+}
+
+/* =========================================================
+   9. VIDEOS
+   ========================================================= */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.video-placeholder {
+  aspect-ratio: 16 / 9;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-soft);
+  font-style: italic;
+}
+
+/* =========================================================
+   10. CONTACT
+   ========================================================= */
+#contact {
+  text-align: center;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+/* =========================================================
+   11. FOOTER
+   ========================================================= */
+footer {
+  text-align: center;
+  padding: 60px 16px;
+  color: var(--text-soft);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+/* =========================================================
+   12. FADE-IN EFFECTS
+   ========================================================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); filter: blur(6px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+
+/* Sections fade in as they scroll into view.
+   Only in browsers that support this; others just show them normally. */
+@supports (animation-timeline: view()) {
+  section {
+    animation: fadeIn linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+
+/* People who turn off motion in their device settings get no animation */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

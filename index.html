@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sheyda | Singer</title>
+
+  <!-- Fonts from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+  <!-- Our own styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER: name and menu at the top -->
+  <header>
+    <h1>Sheyda</h1>
+    <p class="tagline">Singer, Songwriter &amp; Musician</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#songs">My Songs</a>
+      <a href="#videos">Videos</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ABOUT: photo on one side, bio on the other -->
+    <section id="about">
+      <h2>About</h2>
+      <div class="about-layout">
+        <img class="about-photo" src="sheyda.jpg" alt="Portrait of Sheyda" width="1080" height="1350">
+        <div class="about-text">
+          <p>
+            Sheyda is a classically trained singer, composer and songwriter whose voice lies
+            between dramatic soprano and mezzo-soprano. Her journey began with Pink Floyd, whose
+            philosophical lyrics opened a new world to her and led her to pick up the guitar and
+            write her first songs. As the only musician in a non-musician family, she worked to
+            rent piano rooms for practice and eventually bought her own piano.
+          </p>
+          <p>
+            Today she writes music that often arrives fully formed in vivid dreams or on long,
+            solitary walks, and moves between cinematic neoclassical instrumentals and dreamy
+            indie songs in English. She composes and produces her own work, and performs on
+            piano and guitar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY: small photos in a grid. Each one links to its large version below. -->
+    <section id="gallery">
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <a href="#photo1" id="thumb1"><img src="photo1.jpg" alt="Sheyda, photo 1" loading="lazy" width="1080" height="1350"></a>
+        <a href="#photo2" id="thumb2"><img src="photo2.jpg" alt="Sheyda, photo 2" loading="lazy" width="1080" height="1350"></a>
+        <a href="#photo3" id="thumb3"><img src="photo3.jpg" alt="Sheyda, photo 3" loading="lazy" width="1080" height="1350"></a>
+        <a href="#photo4" id="thumb4"><img src="photo4.jpg" alt="Sheyda, photo 4" loading="lazy" width="1080" height="1350"></a>
+        <a href="#photo5" id="thumb5"><img src="photo5.jpg" alt="Sheyda, photo 5" loading="lazy" width="1080" height="1350"></a>
+        <a href="#photo6" id="thumb6"><img src="photo6.jpg" alt="Sheyda, photo 6" loading="lazy" width="1080" height="1350"></a>
+        <a href="#photo7" id="thumb7"><img src="photo7.jpg" alt="Sheyda, photo 7" loading="lazy" width="1080" height="1350"></a>
+        <a href="#photo8" id="thumb8"><img src="photo8.jpg" alt="Sheyda, photo 8" loading="lazy" width="1080" height="1350"></a>
+        <a href="#photo9" id="thumb9"><img src="photo9.jpg" alt="Sheyda, photo 9" loading="lazy" width="1080" height="1350"></a>
+        <a href="#photo10" id="thumb10"><img src="photo10.jpg" alt="Sheyda, photo 10" loading="lazy" width="1080" height="1350"></a>
+      </div>
+    </section>
+
+    <!-- MY SONGS -->
+    <section id="songs">
+      <h2>My Songs</h2>
+      <ul class="song-list">
+        <li>
+          <h3>Song Title One</h3>
+          <p>2026 · A short line about this song.</p>
+          <a href="#">Listen</a>
+        </li>
+        <li>
+          <h3>Song Title Two</h3>
+          <p>2025 · A short line about this song.</p>
+          <a href="#">Listen</a>
+        </li>
+        <li>
+          <h3>Song Title Three</h3>
+          <p>2025 · A short line about this song.</p>
+          <a href="#">Listen</a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- VIDEOS -->
+    <section id="videos">
+      <h2>Videos</h2>
+      <div class="video-grid">
+        <div class="video-placeholder">Video 1 goes here</div>
+        <div class="video-placeholder">Video 2 goes here</div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>For booking and collaborations, email: <a href="mailto:sheydamusic@outlook.com">sheydamusic@outlook.com</a></p>
+      <div class="socials">
+        <a href="https://instagram.com/" target="_blank">Instagram</a>
+        <a href="https://youtube.com/" target="_blank">YouTube</a>
+        <a href="https://tiktok.com/" target="_blank">TikTok</a>
+        <a href="https://open.spotify.com/" target="_blank">Spotify</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LARGE PHOTO VIEWS: hidden until a gallery photo is clicked.
+       Clicking anywhere (or the ×) goes back to that photo in the gallery. -->
+  <div class="lightbox" id="photo1"><a href="#thumb1" class="lightbox-close" aria-label="Close">&times;</a><img src="photo1.jpg" alt="Sheyda, photo 1" loading="lazy"></div>
+  <div class="lightbox" id="photo2"><a href="#thumb2" class="lightbox-close" aria-label="Close">&times;</a><img src="photo2.jpg" alt="Sheyda, photo 2" loading="lazy"></div>
+  <div class="lightbox" id="photo3"><a href="#thumb3" class="lightbox-close" aria-label="Close">&times;</a><img src="photo3.jpg" alt="Sheyda, photo 3" loading="lazy"></div>
+  <div class="lightbox" id="photo4"><a href="#thumb4" class="lightbox-close" aria-label="Close">&times;</a><img src="photo4.jpg" alt="Sheyda, photo 4" loading="lazy"></div>
+  <div class="lightbox" id="photo5"><a href="#thumb5" class="lightbox-close" aria-label="Close">&times;</a><img src="photo5.jpg" alt="Sheyda, photo 5" loading="lazy"></div>
+  <div class="lightbox" id="photo6"><a href="#thumb6" class="lightbox-close" aria-label="Close">&times;</a><img src="photo6.jpg" alt="Sheyda, photo 6" loading="lazy"></div>
+  <div class="lightbox" id="photo7"><a href="#thumb7" class="lightbox-close" aria-label="Close">&times;</a><img src="photo7.jpg" alt="Sheyda, photo 7" loading="lazy"></div>
+  <div class="lightbox" id="photo8"><a href="#thumb8" class="lightbox-close" aria-label="Close">&times;</a><img src="photo8.jpg" alt="Sheyda, photo 8" loading="lazy"></div>
+  <div class="lightbox" id="photo9"><a href="#thumb9" class="lightbox-close" aria-label="Close">&times;</a><img src="photo9.jpg" alt="Sheyda, photo 9" loading="lazy"></div>
+  <div class="lightbox" id="photo10"><a href="#thumb10" class="lightbox-close" aria-label="Close">&times;</a><img src="photo10.jpg" alt="Sheyda, photo 10" loading="lazy"></div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Sheyda. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
