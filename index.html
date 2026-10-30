@@ -23,7 +23,9 @@
       <a href="#about">About</a>
       <a href="#gallery">Gallery</a>
       <a href="#songs">My Songs</a>
+      <!-- Videos link hidden for now. To bring it back, remove the arrows around it:
       <a href="#videos">Videos</a>
+      -->
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -92,8 +94,8 @@
       </ul>
     </section>
 
-    <!-- VIDEOS -->
-    <section id="videos">
+    <!-- VIDEOS: hidden for now. To show it again, delete the word "hidden" below. -->
+    <section id="videos" hidden>
       <h2>Videos</h2>
       <div class="video-grid">
         <div class="video-placeholder">Video 1 goes here</div>
@@ -105,11 +107,17 @@
     <section id="contact">
       <h2>Contact</h2>
       <p>For booking and collaborations, email: <a href="mailto:sheydamusic@outlook.com">sheydamusic@outlook.com</a></p>
+      <!-- Social media icons. Each one is a link with a small drawing (SVG) inside. -->
       <div class="socials">
-        <a href="https://instagram.com/" target="_blank">Instagram</a>
-        <a href="https://youtube.com/" target="_blank">YouTube</a>
-        <a href="https://tiktok.com/" target="_blank">TikTok</a>
-        <a href="https://open.spotify.com/" target="_blank">Spotify</a>
+        <a href="https://www.instagram.com/thissisheyda" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle class="dot" cx="17.3" cy="6.7" r="0.6"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@thissisheyda" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="4"/><path class="fill" d="M10 9.2v5.6l4.8-2.8z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@thissisheyda" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.4 5 4.6"/></svg>
+        </a>
       </div>
     </section>
 
@@ -130,6 +138,17 @@
 
   <!-- FOOTER -->
   <footer>
+    <div class="socials socials-small">
+      <a href="https://www.instagram.com/thissisheyda" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle class="dot" cx="17.3" cy="6.7" r="0.6"/></svg>
+      </a>
+      <a href="https://www.youtube.com/@thissisheyda" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="4"/><path class="fill" d="M10 9.2v5.6l4.8-2.8z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@thissisheyda" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.4 5 4.6"/></svg>
+      </a>
+    </div>
     <p>&copy; 2026 Sheyda. All rights reserved.</p>
   </footer>
 

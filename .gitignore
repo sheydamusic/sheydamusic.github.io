@@ -2,3 +2,13 @@
 about-original.*
 B4CD5F55-*
 IMG_*
+
+# Full songs stay on this laptop only. Only the 30-second previews are uploaded.
+*.wav
+*.flac
+*.aif
+*.aiff
+*.m4a
+*.ogg
+*.mp3
+!*-preview.mp3

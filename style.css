@@ -324,9 +324,8 @@ section p {
   color: var(--text-soft);
 }
 
-/* the "Listen" and social links look like small buttons */
-.song-list a,
-.socials a {
+/* the "Listen" links look like small buttons */
+.song-list a {
   display: inline-block;
   border: 1px solid var(--accent);
   border-radius: 999px;
@@ -336,8 +335,7 @@ section p {
   transition: background 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
-.song-list a:hover,
-.socials a:hover {
+.song-list a:hover {
   background: var(--accent);
   color: var(--midnight);
   box-shadow: 0 0 24px var(--accent-glow);
@@ -376,8 +374,61 @@ section p {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 36px;
+}
+
+/* each icon sits in a thin amber circle */
+.socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(242, 179, 107, 0.45);
+  border-radius: 50%;
+  color: var(--accent);
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.socials svg {
+  width: 22px;
+  height: 22px;
+  fill: none;                 /* icons are drawn as thin lines... */
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.socials svg .dot,
+.socials svg .fill {
+  fill: currentColor;         /* ...except these small solid parts */
+  stroke: none;
+}
+
+.socials a:hover {
+  opacity: 1;
+  border-color: var(--accent);
+  background: rgba(242, 179, 107, 0.08);
+  box-shadow: 0 0 24px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+/* smaller icons in the footer */
+.socials-small {
+  margin: 0 0 20px;
   gap: 14px;
-  margin-top: 32px;
+}
+
+.socials-small a {
+  width: 40px;
+  height: 40px;
+}
+
+.socials-small svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* =========================================================
