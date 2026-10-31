@@ -3,40 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sheyda | Singer</title>
+  <title>Sheyda | Singer, Songwriter &amp; Musician</title>
+  <meta name="description" content="Sheyda is a classically trained singer, composer and songwriter. Listen to Fallen Crown, Chosen One and Mascara.">
 
   <!-- Fonts from Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <!-- Our own styles -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- HEADER: name and menu at the top -->
-  <header>
-    <h1>Sheyda</h1>
-    <p class="tagline">Singer, Songwriter &amp; Musician</p>
-    <nav>
+  <!-- ===================================================
+       STICKY TOP MENU: stays at the top while you scroll.
+       On phones the links fold away behind a menu icon.
+       =================================================== -->
+  <header class="site-nav" id="site-nav">
+    <a href="#home" class="nav-brand">Sheyda</a>
+
+    <button class="nav-toggle" id="nav-toggle" type="button"
+            aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav-links" id="nav-links">
+      <a href="#songs">Music</a>
       <a href="#about">About</a>
       <a href="#gallery">Gallery</a>
-      <a href="#songs">My Songs</a>
+      <a href="#news">News</a>
       <!-- Videos link hidden for now. To bring it back, remove the arrows around it:
       <a href="#videos">Videos</a>
       -->
-      <a href="#contact">Contact</a>
+      <a href="#contact">Booking &amp; Contact</a>
     </nav>
   </header>
 
   <main>
 
-    <!-- ABOUT: photo on one side, bio on the other -->
+    <!-- ===================================================
+         HERO: the big first screen, featuring the newest song
+         =================================================== -->
+    <section class="hero" id="home">
+      <div class="hero-photo">
+        <img src="photo1.jpg" alt="Sheyda" width="1080" height="1350" fetchpriority="high">
+      </div>
+
+      <div class="hero-text">
+        <h1>Sheyda</h1>
+        <p class="tagline">Singer, Songwriter &amp; Musician</p>
+
+        <div class="hero-feature">
+          <p class="eyebrow">Newest song</p>
+          <p class="hero-song">Fallen Crown</p>
+          <a class="btn btn-solid" href="#songs">
+            <span class="btn-icon" aria-hidden="true"></span>Listen
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         MY SONGS: one card per song, each with its own player
+         =================================================== -->
+    <section id="songs">
+      <h2>My Songs</h2>
+
+      <div class="song-grid">
+        <article class="track song-card">
+          <div class="song-card-top">
+            <span class="song-num">01</span>
+            <span class="badge">New</span>
+          </div>
+          <h3>Fallen Crown</h3>
+          <p class="song-meta">30-second preview</p>
+          <div class="player">
+            <button class="play" type="button" aria-label="Play Fallen Crown"></button>
+            <input class="seek" type="range" min="0" max="30" step="0.1" value="0" aria-label="Fallen Crown position">
+            <span class="time">0:30</span>
+          </div>
+          <audio src="song1-preview.mp3" preload="metadata" controls></audio>
+        </article>
+
+        <article class="track song-card">
+          <div class="song-card-top">
+            <span class="song-num">02</span>
+          </div>
+          <h3>Chosen One <span class="subtitle">(Instrumental)</span></h3>
+          <p class="song-meta">30-second preview</p>
+          <div class="player">
+            <button class="play" type="button" aria-label="Play Chosen One (Instrumental)"></button>
+            <input class="seek" type="range" min="0" max="30" step="0.1" value="0" aria-label="Chosen One position">
+            <span class="time">0:30</span>
+          </div>
+          <audio src="song2-preview.mp3" preload="metadata" controls></audio>
+        </article>
+
+        <article class="track song-card">
+          <div class="song-card-top">
+            <span class="song-num">03</span>
+          </div>
+          <h3>Mascara</h3>
+          <p class="song-meta">30-second preview</p>
+          <div class="player">
+            <button class="play" type="button" aria-label="Play Mascara"></button>
+            <input class="seek" type="range" min="0" max="30" step="0.1" value="0" aria-label="Mascara position">
+            <span class="time">0:30</span>
+          </div>
+          <audio src="song3-preview.mp3" preload="metadata" controls></audio>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         ABOUT: photo on one side, bio on the other
+         =================================================== -->
     <section id="about">
       <h2>About</h2>
       <div class="about-layout">
-        <img class="about-photo" src="sheyda.jpg" alt="Portrait of Sheyda" width="1080" height="1350">
+        <img class="about-photo" src="sheyda.jpg" alt="Portrait of Sheyda" width="1080" height="1350" loading="lazy">
         <div class="about-text">
           <p>
             Sheyda is a classically trained singer, composer and songwriter whose voice lies
@@ -55,7 +141,9 @@
       </div>
     </section>
 
-    <!-- GALLERY: small photos in a grid. Each one links to its large version below. -->
+    <!-- ===================================================
+         GALLERY: click a photo to see it larger
+         =================================================== -->
     <section id="gallery">
       <h2>Gallery</h2>
       <div class="gallery-grid">
@@ -72,41 +160,33 @@
       </div>
     </section>
 
-    <!-- MY SONGS -->
-    <section id="songs">
-      <h2>My Songs</h2>
-      <!-- Each song is one "track": a play button, the title, a progress slider and the time.
-           The <audio> tag holds the actual sound file. -->
-      <ul class="song-list">
-        <li class="track">
-          <button class="play" type="button" aria-label="Play Fallen Crown"></button>
-          <div class="track-info">
-            <h3>Fallen Crown</h3>
-            <input class="seek" type="range" min="0" max="30" step="0.1" value="0" aria-label="Fallen Crown position">
-          </div>
-          <span class="time">0:30</span>
-          <audio src="song1-preview.mp3" preload="metadata" controls></audio>
-        </li>
-        <li class="track">
-          <button class="play" type="button" aria-label="Play Chosen One (Instrumental)"></button>
-          <div class="track-info">
-            <h3>Chosen One <span class="subtitle">(Instrumental)</span></h3>
-            <input class="seek" type="range" min="0" max="30" step="0.1" value="0" aria-label="Chosen One position">
-          </div>
-          <span class="time">0:30</span>
-          <audio src="song2-preview.mp3" preload="metadata" controls></audio>
-        </li>
-        <li class="track">
-          <button class="play" type="button" aria-label="Play Mascara"></button>
-          <div class="track-info">
-            <h3>Mascara</h3>
-            <input class="seek" type="range" min="0" max="30" step="0.1" value="0" aria-label="Mascara position">
-          </div>
-          <span class="time">0:30</span>
-          <audio src="song3-preview.mp3" preload="metadata" controls></audio>
-        </li>
-      </ul>
-      <p class="preview-note">30-second previews</p>
+    <!-- ===================================================
+         NEWS: latest updates, plus the mailing list box
+         =================================================== -->
+    <section id="news">
+      <h2>News</h2>
+
+      <!-- Copy this whole <article> block to add another update -->
+      <article class="news-card">
+        <time datetime="2026-10-31">31 October 2026</time>
+        <h3>Your news headline goes here</h3>
+        <p>
+          This is a placeholder update. Use it to share a new release, an upcoming show,
+          or a moment from the studio.
+        </p>
+      </article>
+
+      <!-- MAILING LIST (layout only for now, not connected to a service yet) -->
+      <div class="signup">
+        <h3>Join the mailing list</h3>
+        <p>Be the first to hear new music and news.</p>
+        <form class="signup-form" id="signup-form">
+          <label class="visually-hidden" for="signup-email">Email address</label>
+          <input type="email" id="signup-email" name="email" placeholder="Your email address" autocomplete="email" required>
+          <button class="btn btn-solid" type="submit">Sign up</button>
+        </form>
+        <p class="form-note" id="signup-note" role="status" hidden>Sign-ups are opening soon. Thank you for your interest.</p>
+      </div>
     </section>
 
     <!-- VIDEOS: hidden for now. To show it again, delete the word "hidden" below. -->
@@ -118,11 +198,62 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
+    <!-- ===================================================
+         BOOKING & CONTACT
+         =================================================== -->
     <section id="contact">
-      <h2>Contact</h2>
-      <p>For booking and collaborations, email: <a href="mailto:sheydamusic@outlook.com">sheydamusic@outlook.com</a></p>
-      <!-- Social media icons. Each one is a link with a small drawing (SVG) inside. -->
+      <h2>Booking &amp; Contact</h2>
+      <p class="contact-intro">
+        For booking and collaborations, email:
+        <a href="mailto:sheydamusic@outlook.com">sheydamusic@outlook.com</a>
+        <br>or send a message below.
+      </p>
+
+      <!-- CONTACT FORM, connected to Formspree (messages are emailed to Sheyda) -->
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/xrppadjo" method="POST">
+        <div class="field-row">
+          <div class="field">
+            <label for="cf-name">Name</label>
+            <input type="text" id="cf-name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="cf-email">Email</label>
+            <input type="email" id="cf-email" name="email" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="cf-topic">Topic</label>
+          <select id="cf-topic" name="topic" required>
+            <option value="" disabled selected>Choose a topic</option>
+            <option>Licensing</option>
+            <option>Booking</option>
+            <option>Press</option>
+            <option>Collaboration</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" rows="6" required></textarea>
+        </div>
+
+        <!-- Subject line of the email Formspree sends you -->
+        <input type="hidden" name="_subject" value="New message from sheydamusic.github.io">
+        <!-- Spam trap: hidden from people, bots fill it in and get ignored -->
+        <input type="text" name="_gotcha" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <button class="btn btn-solid" type="submit">Send message</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <!-- Shown instead of the form after a message is sent -->
+      <div class="thank-you" id="thank-you" tabindex="-1" hidden>
+        <h3>Thank you</h3>
+        <p>Your message has been sent. I'll be in touch soon.</p>
+      </div>
+
+      <!-- Social media icons -->
       <div class="socials">
         <a href="https://www.instagram.com/thissisheyda" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle class="dot" cx="17.3" cy="6.7" r="0.6"/></svg>
@@ -167,17 +298,36 @@
     <p>&copy; 2026 Sheyda. All rights reserved.</p>
   </footer>
 
-  <!-- MUSIC PLAYER: makes the play buttons and sliders work.
-       Without this, visitors simply see the browser's standard player. -->
+  <!-- ===================================================
+       JAVASCRIPT: the parts of the page that react to clicks
+       =================================================== -->
   <script>
-    const tracks = document.querySelectorAll('.track');
+    /* ---------- 1. Phone menu: open and close ---------- */
+    const nav = document.getElementById('site-nav');
+    const navToggle = document.getElementById('nav-toggle');
 
+    function setMenu(open) {
+      nav.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', open);
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+
+    navToggle.addEventListener('click', function () {
+      setMenu(!nav.classList.contains('open'));
+    });
+
+    // tapping a link closes the menu again
+    document.querySelectorAll('.nav-links a').forEach(function (link) {
+      link.addEventListener('click', function () { setMenu(false); });
+    });
+
+    /* ---------- 2. Music players: only one song at a time ---------- */
     function formatTime(seconds) {
       const s = Math.max(0, Math.round(seconds));
       return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
     }
 
-    tracks.forEach(function (track) {
+    document.querySelectorAll('.track').forEach(function (track) {
       const audio = track.querySelector('audio');
       const button = track.querySelector('.play');
       const seek = track.querySelector('.seek');
@@ -189,7 +339,6 @@
 
       button.addEventListener('click', function () {
         if (audio.paused) {
-          // only one song plays at a time
           document.querySelectorAll('.track audio').forEach(function (other) {
             if (other !== audio) other.pause();
           });
@@ -212,20 +361,59 @@
         time.textContent = formatTime(audio.duration);
       });
       audio.addEventListener('timeupdate', function () {
+        const length = audio.duration || 30;
         seek.value = audio.currentTime;
-        seek.style.setProperty('--progress', (audio.currentTime / (audio.duration || 30)) * 100 + '%');
-        time.textContent = formatTime((audio.duration || 30) - audio.currentTime);
+        seek.style.setProperty('--progress', (audio.currentTime / length) * 100 + '%');
+        time.textContent = formatTime(length - audio.currentTime);
       });
       audio.addEventListener('ended', function () {
         audio.currentTime = 0;
       });
-
-      // dragging the slider jumps to that point in the song
       seek.addEventListener('input', function () {
         audio.currentTime = seek.value;
       });
     });
-  </script>
 
+    /* ---------- 3. Mailing list (layout only for now) ---------- */
+    document.getElementById('signup-form').addEventListener('submit', function (event) {
+      event.preventDefault(); // don't send anywhere yet
+      document.getElementById('signup-note').hidden = false;
+    });
+
+    /* ---------- 4. Contact form: send to Formspree, then say thank you ---------- */
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+    const thankYou = document.getElementById('thank-you');
+
+    contactForm.addEventListener('submit', async function (event) {
+      event.preventDefault(); // stay on this page instead of opening Formspree's
+
+      if (contactForm.action.includes('YOUR_FORM_ID')) {
+        formStatus.textContent = 'This form is not connected yet. Please email sheydamusic@outlook.com for now.';
+        return;
+      }
+
+      const button = contactForm.querySelector('button[type="submit"]');
+      button.disabled = true;
+      formStatus.textContent = 'Sending…';
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (!response.ok) throw new Error('Send failed');
+
+        contactForm.reset();
+        contactForm.hidden = true;
+        thankYou.hidden = false;
+        thankYou.focus();
+      } catch (error) {
+        formStatus.textContent = 'Sorry, something went wrong. Please try again or email sheydamusic@outlook.com.';
+        button.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>

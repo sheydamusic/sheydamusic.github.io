@@ -6,11 +6,13 @@
   --midnight: #0b1426;      /* deep dusk-blue background */
   --midnight-deep: #070d1a; /* even darker blue, for the edges */
   --card: rgba(255, 255, 255, 0.04); /* see-through panels */
+  --card-strong: rgba(255, 255, 255, 0.06);
   --line: rgba(232, 228, 218, 0.12); /* faint dividing lines */
   --text: #e8e4da;          /* soft off-white text */
   --text-soft: #a9b3c4;     /* quieter, blue-grey text */
-  --accent: #f2b36b;        /* warm streetlight amber: name, links, buttons */
-  --accent-glow: rgba(242, 179, 107, 0.28); /* soft amber glow */
+  --accent: #f2b36b;        /* warm streetlight amber */
+  --accent-glow: rgba(242, 179, 107, 0.28);
+  --nav-height: 68px;
 }
 
 * {
@@ -18,13 +20,29 @@
 }
 
 html {
-  scroll-behavior: smooth; /* menu links glide instead of jumping */
+  scroll-behavior: smooth;                 /* menu links glide instead of jumping */
+  scroll-padding-top: var(--nav-height);   /* sections don't hide under the menu */
 }
 
 img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+/* anything marked "hidden" in the HTML always stays hidden */
+[hidden] {
+  display: none !important;
+}
+
+/* hides things visually but keeps them for screen readers */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 /* =========================================================
@@ -34,14 +52,12 @@ body {
   margin: 0;
   color: var(--text);
   background-color: var(--midnight);
-  /* Layers, top to bottom: blue haze in the sky, side haze,
-     a low warm glow like city lights on the horizon, and the base blue */
   background-image:
     radial-gradient(ellipse 80% 50% at 50% 0%, rgba(58, 90, 134, 0.42), transparent 70%),
     radial-gradient(ellipse 60% 40% at 0% 55%, rgba(58, 90, 134, 0.16), transparent 70%),
     radial-gradient(ellipse 90% 35% at 50% 105%, rgba(242, 160, 80, 0.14), transparent 70%),
     linear-gradient(180deg, var(--midnight) 0%, var(--midnight-deep) 100%);
-  background-attachment: fixed; /* the haze stays still while you scroll */
+  background-attachment: fixed;
   font-family: "Inter", sans-serif;
   font-weight: 300;
   font-size: 1.05rem;
@@ -68,7 +84,7 @@ body::before {
 }
 
 /* =========================================================
-   3. FONTS
+   3. FONTS, LINKS AND BUTTONS
    ========================================================= */
 h1, h2, h3 {
   font-family: "Cormorant Garamond", serif;
@@ -86,84 +102,303 @@ a:hover {
   opacity: 0.75;
 }
 
-/* =========================================================
-   4. HEADER
-   ========================================================= */
-header {
-  min-height: 90vh; /* fills almost the whole first screen */
-  display: flex;
-  flex-direction: column;
+/* small uppercase label, e.g. "Newest song" */
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* rounded amber button */
+.btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 80px 16px;
-}
-
-header h1 {
-  font-family: "Italiana", serif; /* elegant, airy display font for your name */
-  font-weight: 400;
-  font-size: clamp(4rem, 15vw, 8rem);
-  letter-spacing: 0.12em;
-  line-height: 1.1;
-  margin: 0;
+  gap: 10px;
+  padding: 13px 30px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: transparent;
   color: var(--accent);
-  /* a soft glow, like light from a streetlamp */
-  text-shadow: 0 0 36px var(--accent-glow);
-  animation: fadeIn 2.5s ease both;
-}
-
-.tagline {
-  font-family: "Cormorant Garamond", serif;
-  font-style: italic;
-  font-size: 1.4rem;
-  color: var(--text-soft);
-  margin: 12px 0 0;
-  animation: fadeIn 2.5s ease 0.6s both;
-}
-
-nav {
-  margin-top: 56px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 16px 32px;
-  animation: fadeIn 2.5s ease 1.2s both;
-}
-
-nav a {
+  font: 500 0.82rem/1 "Inter", sans-serif;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.btn-solid {
+  background: var(--accent);
+  color: var(--midnight-deep);
+}
+
+.btn:hover {
+  opacity: 1;
+  box-shadow: 0 0 30px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+}
+
+/* small play triangle inside the Listen button */
+.btn-icon {
+  width: 9px;
+  height: 11px;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   4. STICKY TOP MENU
+   ========================================================= */
+.site-nav {
+  position: sticky;       /* sticks to the top while scrolling */
+  top: 0;
+  z-index: 50;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(16px, 4vw, 48px);
+  background: rgba(7, 13, 26, 0.72);
+  backdrop-filter: blur(14px);     /* frosted glass */
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-brand {
+  font-family: "Italiana", serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(18px, 2.5vw, 36px);
+}
+
+.nav-links a {
+  font-size: 0.74rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--text-soft);
 }
 
-nav a:hover {
+.nav-links a:hover {
   color: var(--accent);
   opacity: 1;
 }
 
+/* the menu icon (three lines) only appears on phones */
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.nav-toggle span {
+  width: 24px;
+  height: 1.5px;
+  background: var(--text);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* when open, the three lines turn into an X */
+.site-nav.open .nav-toggle span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.site-nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+.site-nav.open .nav-toggle span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+@media (max-width: 860px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  /* links become a drop-down panel under the menu bar */
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 16px;
+    background: rgba(7, 13, 26, 0.96);
+    border-bottom: 1px solid var(--line);
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: max-height 0.4s ease, visibility 0.4s;
+  }
+
+  .site-nav.open .nav-links {
+    max-height: 420px;
+    visibility: visible;
+  }
+
+  .nav-links a {
+    padding: 16px 0;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-links a:last-child {
+    border-bottom: none;
+    margin-bottom: 8px;
+  }
+}
+
 /* =========================================================
-   5. SECTIONS (lots of space so it feels calm)
+   5. HERO (the big first screen)
    ========================================================= */
-section {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 120px 16px;
+.hero {
+  position: relative;
+  min-height: calc(100vh - var(--nav-height));
+  min-height: calc(100svh - var(--nav-height));
+  display: grid;
+  align-items: end;
+  overflow: hidden;
 }
 
-/* About and Gallery get more room for photos */
-#about,
-#gallery {
+/* phones: the photo fills the background, fading into blue at the bottom */
+.hero-photo {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(11, 20, 38, 0.15) 0%, rgba(11, 20, 38, 0.55) 50%, var(--midnight) 92%),
+    linear-gradient(180deg, rgba(58, 90, 134, 0.18), rgba(58, 90, 134, 0.18));
+}
+
+.hero-text {
+  position: relative;
+  z-index: 1;
+  padding: 0 16px 56px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-family: "Italiana", serif;
+  font-weight: 400;
+  font-size: clamp(4rem, 17vw, 8.5rem);
+  letter-spacing: 0.12em;
+  line-height: 1;
+  margin: 0;
+  color: var(--accent);
+  text-shadow: 0 0 40px var(--accent-glow);
+  animation: fadeIn 2s ease both;
+}
+
+.tagline {
+  margin: 14px 0 0;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--text-soft);
+  animation: fadeIn 2s ease 0.4s both;
+}
+
+.hero-feature {
+  margin-top: 40px;
+  animation: fadeIn 2s ease 0.8s both;
+}
+
+.hero-song {
+  margin: 0 0 22px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.2rem, 7vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+/* wider screens: text on the left, photo on the right */
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    padding: 40px clamp(32px, 6vw, 96px);
+    gap: 48px;
+  }
+
+  .hero-photo {
+    position: relative;
+    inset: auto;
+    order: 2;
+    width: 100%;
+    max-width: 480px;
+    justify-self: end;
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-photo::after {
+    background: linear-gradient(180deg, transparent 60%, rgba(11, 20, 38, 0.45) 100%);
+  }
+
+  .hero-text {
+    order: 1;
+    padding: 0;
+    text-align: left;
+  }
+
+  .hero-feature {
+    margin-top: 56px;
+    padding-left: 22px;
+    border-left: 1px solid rgba(242, 179, 107, 0.4);
+  }
+}
+
+/* =========================================================
+   6. SECTIONS (lots of space so it feels calm)
+   ========================================================= */
+section:not(.hero) {
   max-width: 1040px;
+  margin: 0 auto;
+  padding: 110px 16px;
 }
 
-/* a thin, fading line between sections instead of a hard border */
-section + section::before {
+/* a thin, fading line between sections */
+section:not(.hero) + section::before {
   content: "";
   display: block;
   width: 120px;
   height: 1px;
-  margin: -120px auto 120px;
+  margin: -110px auto 110px;
   background: linear-gradient(90deg, transparent, var(--line), transparent);
 }
 
@@ -179,181 +414,111 @@ section p {
 }
 
 /* =========================================================
-   6. ABOUT: photo next to the bio
+   7. MY SONGS: one card per song
    ========================================================= */
-.about-layout {
+.song-grid {
   display: grid;
-  grid-template-columns: 1fr;   /* phones: photo on top, text below */
-  gap: 40px;
-  align-items: center;
-}
-
-.about-photo {
-  width: 100%;
-  max-width: 380px;
-  margin: 0 auto;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-}
-
-/* wider screens: photo on the left, text on the right */
-@media (min-width: 760px) {
-  .about-layout {
-    grid-template-columns: 2fr 3fr;
-    gap: 64px;
-  }
-}
-
-/* =========================================================
-   7. GALLERY
-   ========================================================= */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* phones: two per row */
-  gap: 12px;
-}
-
-@media (max-width: 340px) {
-  .gallery-grid {
-    grid-template-columns: 1fr;          /* very small phones: one per row */
-  }
+  grid-template-columns: 1fr;          /* phones: one card per row */
+  gap: 20px;
 }
 
 @media (min-width: 760px) {
-  .gallery-grid {
-    grid-template-columns: repeat(3, 1fr); /* computers: three per row */
-    gap: 20px;
+  .song-grid {
+    grid-template-columns: repeat(3, 1fr);  /* computers: three side by side */
+    gap: 24px;
   }
 }
 
-.gallery-grid a {
-  display: block;
-  overflow: hidden;
-  border-radius: 12px;
-  aspect-ratio: 4 / 5;
-}
-
-.gallery-grid img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease, filter 0.6s ease;
-}
-
-/* hovering a photo zooms it slightly and warms it a little */
-.gallery-grid a:hover {
-  opacity: 1;
-}
-
-.gallery-grid a:hover img {
-  transform: scale(1.04);
-  filter: brightness(1.08);
-}
-
-/* ---------- Large photo view (lightbox) ---------- */
-.lightbox {
-  display: none;               /* hidden until its photo is clicked */
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: rgba(5, 9, 18, 0.92);
-  backdrop-filter: blur(8px);
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-
-/* ":target" means "the element whose id is in the address bar right now" */
-.lightbox:target {
+.song-card {
   display: flex;
-  animation: lightboxIn 0.4s ease;
-}
-
-.lightbox img {
-  max-height: 90vh;
-  width: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
-  pointer-events: none; /* clicks pass through to the close link behind */
-}
-
-/* the close link covers the whole screen, so a click anywhere closes */
-.lightbox-close {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding: 12px 24px;
-  font-size: 2.75rem;
-  line-height: 1;
-  color: var(--text);
-}
-
-@keyframes lightboxIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-/* =========================================================
-   8. MY SONGS
-   ========================================================= */
-.song-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 24px;
-}
-
-/* one song card: [play button] [title + slider] [time] */
-.track {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 8px 20px;
-  background: var(--card);
+  flex-direction: column;
+  padding: 28px;
+  background: linear-gradient(160deg, var(--card-strong), var(--card));
   border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 22px 24px;
-  backdrop-filter: blur(6px); /* frosted-glass look */
-  transition: border-color 0.4s, box-shadow 0.4s;
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s;
+}
+
+.song-card:hover {
+  transform: translateY(-3px);
 }
 
 /* the card glows softly while its song plays */
-.track.playing {
-  border-color: rgba(242, 179, 107, 0.4);
-  box-shadow: 0 0 40px rgba(242, 179, 107, 0.08);
+.song-card.playing {
+  border-color: rgba(242, 179, 107, 0.45);
+  box-shadow: 0 0 50px rgba(242, 179, 107, 0.1);
 }
 
-.track h3 {
-  margin: 0 0 6px;
-  font-size: 1.6rem;
-  line-height: 1.2;
+.song-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36px;
 }
 
-.track .subtitle {
+.song-num {
+  font-family: "Italiana", serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  color: var(--text-soft);
+}
+
+.badge {
+  padding: 4px 12px;
+  border: 1px solid rgba(242, 179, 107, 0.5);
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.song-card h3 {
+  margin: 0;
+  font-size: 1.9rem;
+  line-height: 1.15;
+}
+
+.song-card .subtitle {
+  display: block;
   font-style: italic;
-  font-size: 0.75em;
+  font-size: 0.6em;
   color: var(--text-soft);
 }
 
-.track .time {
-  font-size: 0.85rem;
+.song-meta {
+  margin: 8px 0 28px;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--text-soft);
-  font-variant-numeric: tabular-nums; /* digits don't jiggle as they change */
+}
+
+/* the player row: [play button] [slider] [time] */
+.player {
+  margin-top: auto;          /* pushes the player to the bottom of the card */
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+}
+
+.time {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Before the player script runs, show the browser's own player instead */
-.track:not(.ready) .play,
-.track:not(.ready) .seek,
-.track:not(.ready) .time {
+.track:not(.ready) .player {
   display: none;
 }
 
 .track audio {
-  grid-column: 1 / -1;
   width: 100%;
+  margin-top: auto;
 }
 
 .track.ready audio {
@@ -362,8 +527,8 @@ section p {
 
 /* ---------- Play / pause button ---------- */
 .play {
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: 1px solid var(--accent);
   background: transparent;
@@ -375,17 +540,15 @@ section p {
   transition: background 0.3s, box-shadow 0.3s;
 }
 
-/* the play triangle, drawn with CSS */
 .play::before {
   content: "";
-  width: 14px;
-  height: 16px;
+  width: 13px;
+  height: 15px;
   margin-left: 3px;
   background: currentColor;
   clip-path: polygon(0 0, 100% 50%, 0 100%);
 }
 
-/* while playing, the triangle becomes two pause bars */
 .track.playing .play::before {
   width: 12px;
   height: 14px;
@@ -397,12 +560,6 @@ section p {
 .track.playing .play {
   background: rgba(242, 179, 107, 0.1);
   box-shadow: 0 0 24px var(--accent-glow);
-}
-
-.play:focus-visible,
-.seek:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
 }
 
 /* ---------- Progress slider ---------- */
@@ -417,7 +574,6 @@ section p {
   cursor: pointer;
 }
 
-/* the thin line: amber for the part already played, faint for the rest */
 .seek::-webkit-slider-runnable-track {
   height: 2px;
   border-radius: 2px;
@@ -430,7 +586,6 @@ section p {
   background: linear-gradient(90deg, var(--accent) var(--progress), rgba(232, 228, 218, 0.15) var(--progress));
 }
 
-/* the small dot you can drag */
 .seek::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 10px;
@@ -450,17 +605,385 @@ section p {
   box-shadow: 0 0 10px var(--accent-glow);
 }
 
-.preview-note {
-  margin-top: 20px;
+/* =========================================================
+   8. ABOUT: photo next to the bio
+   ========================================================= */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.about-photo {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+@media (min-width: 760px) {
+  .about-layout {
+    grid-template-columns: 2fr 3fr;
+    gap: 64px;
+  }
+}
+
+/* =========================================================
+   9. GALLERY
+   ========================================================= */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 340px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 760px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+.gallery-grid a {
+  display: block;
+  overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 4 / 5;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+.gallery-grid a:hover { opacity: 1; }
+
+.gallery-grid a:hover img {
+  transform: scale(1.04);
+  filter: brightness(1.08);
+}
+
+/* ---------- Large photo view (lightbox) ---------- */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(5, 9, 18, 0.92);
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.lightbox:target {
+  display: flex;
+  animation: lightboxIn 0.4s ease;
+}
+
+.lightbox img {
+  max-height: 90vh;
+  width: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.lightbox-close {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 12px 24px;
+  font-size: 2.75rem;
+  line-height: 1;
+  color: var(--text);
+}
+
+@keyframes lightboxIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* =========================================================
+   10. NEWS AND MAILING LIST
+   ========================================================= */
+#news {
+  max-width: 760px;
+}
+
+.news-card {
+  padding: 32px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  border-radius: 4px 16px 16px 4px;
+}
+
+.news-card time {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.news-card h3 {
+  margin: 8px 0 12px;
+  font-size: 1.9rem;
+  line-height: 1.2;
+}
+
+.news-card p {
+  margin: 0;
+  color: var(--text-soft);
+}
+
+.signup {
+  margin-top: 48px;
+  padding: 44px 32px;
   text-align: center;
-  font-size: 0.8rem;
-  letter-spacing: 0.15em;
+  border-radius: 20px;
+  border: 1px solid rgba(242, 179, 107, 0.25);
+  background:
+    radial-gradient(ellipse at 50% 120%, rgba(242, 160, 80, 0.14), transparent 70%),
+    var(--card);
+}
+
+.signup h3 {
+  margin: 0 0 6px;
+  font-size: 2rem;
+}
+
+.signup > p {
+  margin: 0 0 28px;
+  color: var(--text-soft);
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+@media (min-width: 560px) {
+  .signup-form { flex-direction: row; }
+  .signup-form input { flex: 1; }
+}
+
+.form-note {
+  margin: 16px 0 0;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+/* =========================================================
+   11. FORM FIELDS (shared by sign-up and contact)
+   ========================================================= */
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  padding: 13px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(7, 13, 26, 0.55);
+  color: var(--text);
+  font: 300 1rem/1.5 "Inter", sans-serif;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.signup-form input {
+  border-radius: 999px;
+  padding-left: 22px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(169, 179, 196, 0.6);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(242, 179, 107, 0.15);
+}
+
+/* the drop-down gets its own little amber arrow */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 44px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23f2b36b' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+}
+
+select:invalid {
+  color: rgba(169, 179, 196, 0.6);   /* "Choose a topic" looks like a hint */
+}
+
+option {
+  background: var(--midnight);
+  color: var(--text);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+/* =========================================================
+   12. BOOKING & CONTACT
+   ========================================================= */
+#contact {
+  max-width: 760px;
+  text-align: center;
+}
+
+.contact-intro {
+  color: var(--text-soft);
+}
+
+.contact-form {
+  margin-top: 40px;
+  display: grid;
+  gap: 20px;
+  text-align: left;
+}
+
+.field-row {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 600px) {
+  .field-row { grid-template-columns: 1fr 1fr; }
+}
+
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-soft);
 }
 
+.contact-form .btn {
+  justify-self: start;
+}
+
+.form-status {
+  margin: 0;
+  min-height: 1.5em;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+.thank-you {
+  margin-top: 40px;
+  padding: 48px 32px;
+  border: 1px solid rgba(242, 179, 107, 0.4);
+  border-radius: 20px;
+  background: var(--card);
+  animation: fadeIn 0.8s ease both;
+}
+
+.thank-you:focus {
+  outline: none;
+}
+
+.thank-you h3 {
+  margin: 0 0 8px;
+  font-family: "Italiana", serif;
+  font-size: 2.4rem;
+  color: var(--accent);
+}
+
+.thank-you p {
+  margin: 0;
+  color: var(--text-soft);
+}
+
+/* ---------- Social icons ---------- */
+.socials {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 56px;
+}
+
+.socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(242, 179, 107, 0.45);
+  border-radius: 50%;
+  color: var(--accent);
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.socials svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.socials svg .dot,
+.socials svg .fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+.socials a:hover {
+  opacity: 1;
+  border-color: var(--accent);
+  background: rgba(242, 179, 107, 0.08);
+  box-shadow: 0 0 24px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+.socials-small {
+  margin: 0 0 20px;
+  gap: 14px;
+}
+
+.socials-small a {
+  width: 40px;
+  height: 40px;
+}
+
+.socials-small svg {
+  width: 18px;
+  height: 18px;
+}
+
 /* =========================================================
-   9. VIDEOS
+   13. VIDEOS (hidden for now, styles kept for later)
    ========================================================= */
 .video-grid {
   display: grid;
@@ -481,75 +1004,7 @@ section p {
 }
 
 /* =========================================================
-   10. CONTACT
-   ========================================================= */
-#contact {
-  text-align: center;
-}
-
-.socials {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 18px;
-  margin-top: 36px;
-}
-
-/* each icon sits in a thin amber circle */
-.socials a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border: 1px solid rgba(242, 179, 107, 0.45);
-  border-radius: 50%;
-  color: var(--accent);
-  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-}
-
-.socials svg {
-  width: 22px;
-  height: 22px;
-  fill: none;                 /* icons are drawn as thin lines... */
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.socials svg .dot,
-.socials svg .fill {
-  fill: currentColor;         /* ...except these small solid parts */
-  stroke: none;
-}
-
-.socials a:hover {
-  opacity: 1;
-  border-color: var(--accent);
-  background: rgba(242, 179, 107, 0.08);
-  box-shadow: 0 0 24px var(--accent-glow);
-  transform: translateY(-2px);
-}
-
-/* smaller icons in the footer */
-.socials-small {
-  margin: 0 0 20px;
-  gap: 14px;
-}
-
-.socials-small a {
-  width: 40px;
-  height: 40px;
-}
-
-.socials-small svg {
-  width: 18px;
-  height: 18px;
-}
-
-/* =========================================================
-   11. FOOTER
+   14. FOOTER
    ========================================================= */
 footer {
   text-align: center;
@@ -557,20 +1012,24 @@ footer {
   color: var(--text-soft);
   font-size: 0.8rem;
   letter-spacing: 0.1em;
+  border-top: 1px solid var(--line);
+}
+
+footer p {
+  margin: 0;
 }
 
 /* =========================================================
-   12. FADE-IN EFFECTS
+   15. FADE-IN EFFECTS
    ========================================================= */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(30px); filter: blur(6px); }
   to   { opacity: 1; transform: none; filter: none; }
 }
 
-/* Sections fade in as they scroll into view.
-   Only in browsers that support this; others just show them normally. */
+/* Sections fade in as they scroll into view (the hero has its own animation) */
 @supports (animation-timeline: view()) {
-  section {
+  section:not(.hero) {
     animation: fadeIn linear both;
     animation-timeline: view();
     animation-range: entry 0% entry 60%;
@@ -581,6 +1040,7 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   *, *::before {
     animation: none !important;
+    transition: none !important;
   }
   html {
     scroll-behavior: auto;
