@@ -3,8 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sheyda | Singer, Songwriter &amp; Musician</title>
-  <meta name="description" content="Sheyda is a classically trained singer, composer and songwriter. Listen to Fallen Crown, Chosen One and Mascara.">
+  <title>Sheyda | Singer-Songwriter &amp; Composer – Listen to Fallen Crown</title>
+  <meta name="description" content="Official site of singer-songwriter and composer Sheyda. Listen to Fallen Crown, Chosen One and Mascara – cinematic neoclassical and dreamy indie songs.">
+  <link rel="canonical" href="https://sheydamusic.github.io/">
+  <link rel="alternate" hreflang="en" href="https://sheydamusic.github.io/">
+  <link rel="alternate" hreflang="x-default" href="https://sheydamusic.github.io/">
+  <meta name="theme-color" content="#111111">
+
+  <!-- How the site looks when shared on social media and messengers -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sheyda">
+  <meta property="og:title" content="Sheyda – Singer-Songwriter &amp; Composer">
+  <meta property="og:description" content="Official site of singer-songwriter and composer Sheyda. Listen to Fallen Crown, Chosen One and Mascara – cinematic neoclassical and dreamy indie songs.">
+  <meta property="og:url" content="https://sheydamusic.github.io/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://sheydamusic.github.io/photo1.jpg">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="1350">
+  <meta property="og:image:alt" content="Sheyda, singer-songwriter, in a black jacket looking over her shoulder">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Structured data: tells Google this is the official site of a music artist, and lists her songs -->
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "MusicGroup", "@id": "https://sheydamusic.github.io/#artist", "name": "Sheyda", "url": "https://sheydamusic.github.io/", "image": "https://sheydamusic.github.io/sheyda.jpg", "description": "Sheyda is a classically trained singer, composer and songwriter whose voice lies between dramatic soprano and mezzo-soprano. She writes cinematic neoclassical instrumentals and dreamy indie songs in English, and performs on piano and guitar.", "genre": ["Neoclassical", "Cinematic", "Indie pop"], "email": "mailto:sheydamusic@outlook.com", "sameAs": ["https://www.instagram.com/thissisheyda", "https://www.youtube.com/@thissisheyda", "https://www.tiktok.com/@thissisheyda"], "track": [{"@type": "MusicRecording", "name": "Fallen Crown", "url": "https://sheydamusic.github.io/#songs", "byArtist": {"@id": "https://sheydamusic.github.io/#artist"}, "audio": {"@type": "AudioObject", "contentUrl": "https://sheydamusic.github.io/song1-preview.mp3", "encodingFormat": "audio/mpeg", "description": "30-second preview"}}, {"@type": "MusicRecording", "name": "Chosen One (Instrumental)", "url": "https://sheydamusic.github.io/#songs", "byArtist": {"@id": "https://sheydamusic.github.io/#artist"}, "audio": {"@type": "AudioObject", "contentUrl": "https://sheydamusic.github.io/song2-preview.mp3", "encodingFormat": "audio/mpeg", "description": "30-second preview"}}, {"@type": "MusicRecording", "name": "Mascara", "url": "https://sheydamusic.github.io/#songs", "byArtist": {"@id": "https://sheydamusic.github.io/#artist"}, "audio": {"@type": "AudioObject", "contentUrl": "https://sheydamusic.github.io/song3-preview.mp3", "encodingFormat": "audio/mpeg", "description": "30-second preview"}}]}, {"@type": "WebSite", "@id": "https://sheydamusic.github.io/#website", "url": "https://sheydamusic.github.io/", "name": "Sheyda – Official Website", "inLanguage": "en", "publisher": {"@id": "https://sheydamusic.github.io/#artist"}}]}</script>
 
   <!-- Proves to Google Search Console that this site belongs to Sheyda -->
   <meta name="google-site-verification" content="tlonYbMhgDjxhKa80vcJqUX_G8oHPExtfwzJQ-pp7EY" />
@@ -13,6 +33,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="preload" as="image" href="photo1.jpg" fetchpriority="high">
 
   <!-- Our own styles -->
   <link rel="stylesheet" href="style.css">
@@ -50,12 +72,12 @@
          =================================================== -->
     <section class="hero" id="home">
       <div class="hero-photo">
-        <img src="photo1.jpg" alt="Sheyda" width="1080" height="1350" fetchpriority="high">
+        <img src="photo1.jpg" alt="Sheyda, singer-songwriter and composer, in a black jacket looking over her shoulder" width="1080" height="1350" fetchpriority="high" decoding="async">
       </div>
 
       <div class="hero-text">
         <h1>Sheyda</h1>
-        <p class="tagline">Singer, Songwriter &amp; Musician</p>
+        <p class="tagline">Singer, Songwriter &amp; Composer</p>
 
         <div class="hero-feature">
           <p class="eyebrow">Newest song</p>
@@ -125,7 +147,7 @@
     <section id="about">
       <h2>About</h2>
       <div class="about-layout">
-        <img class="about-photo" src="sheyda.jpg" alt="Portrait of Sheyda" width="1080" height="1350" loading="lazy">
+        <img class="about-photo" src="sheyda.jpg" alt="Portrait of Sheyda, classically trained singer, songwriter and composer" width="1080" height="1350" loading="lazy" decoding="async">
         <div class="about-text">
           <p>
             Sheyda is a classically trained singer, composer and songwriter whose voice lies
@@ -150,16 +172,16 @@
     <section id="gallery">
       <h2>Gallery</h2>
       <div class="gallery-grid">
-        <a href="#photo1" id="thumb1"><img src="photo1.jpg" alt="Sheyda, photo 1" loading="lazy" width="1080" height="1350"></a>
-        <a href="#photo2" id="thumb2"><img src="photo2.jpg" alt="Sheyda, photo 2" loading="lazy" width="1080" height="1350"></a>
-        <a href="#photo3" id="thumb3"><img src="photo3.jpg" alt="Sheyda, photo 3" loading="lazy" width="1080" height="1350"></a>
-        <a href="#photo4" id="thumb4"><img src="photo4.jpg" alt="Sheyda, photo 4" loading="lazy" width="1080" height="1350"></a>
-        <a href="#photo5" id="thumb5"><img src="photo5.jpg" alt="Sheyda, photo 5" loading="lazy" width="1080" height="1350"></a>
-        <a href="#photo6" id="thumb6"><img src="photo6.jpg" alt="Sheyda, photo 6" loading="lazy" width="1080" height="1350"></a>
-        <a href="#photo7" id="thumb7"><img src="photo7.jpg" alt="Sheyda, photo 7" loading="lazy" width="1080" height="1350"></a>
-        <a href="#photo8" id="thumb8"><img src="photo8.jpg" alt="Sheyda, photo 8" loading="lazy" width="1080" height="1350"></a>
-        <a href="#photo9" id="thumb9"><img src="photo9.jpg" alt="Sheyda, photo 9" loading="lazy" width="1080" height="1350"></a>
-        <a href="#photo10" id="thumb10"><img src="photo10.jpg" alt="Sheyda, photo 10" loading="lazy" width="1080" height="1350"></a>
+        <a href="#photo1" id="thumb1"><img src="photo1-thumb.jpg" alt="Sheyda in a black jacket looking over her shoulder" loading="lazy" decoding="async" width="600" height="750"></a>
+        <a href="#photo2" id="thumb2"><img src="photo2-thumb.jpg" alt="Sheyda singing into a vintage microphone" loading="lazy" decoding="async" width="600" height="750"></a>
+        <a href="#photo3" id="thumb3"><img src="photo3-thumb.jpg" alt="Sheyda covering her face with her hands in a moody studio portrait" loading="lazy" decoding="async" width="600" height="750"></a>
+        <a href="#photo4" id="thumb4"><img src="photo4-thumb.jpg" alt="Sheyda singing at a microphone in a soft, grey-toned photo" loading="lazy" decoding="async" width="600" height="750"></a>
+        <a href="#photo5" id="thumb5"><img src="photo5-thumb.jpg" alt="Sheyda singing passionately at a white grand piano" loading="lazy" decoding="async" width="600" height="750"></a>
+        <a href="#photo6" id="thumb6"><img src="photo6-thumb.jpg" alt="Sheyda playing a white grand piano in front of a turquoise backdrop" loading="lazy" decoding="async" width="600" height="750"></a>
+        <a href="#photo7" id="thumb7"><img src="photo7-thumb.jpg" alt="Sheyda playing the piano in a turquoise-lit studio" loading="lazy" decoding="async" width="600" height="750"></a>
+        <a href="#photo8" id="thumb8"><img src="photo8-thumb.jpg" alt="Sheyda at a white grand piano in the studio" loading="lazy" decoding="async" width="600" height="750"></a>
+        <a href="#photo9" id="thumb9"><img src="photo9-thumb.jpg" alt="Portrait of Sheyda with long blonde hair in a black jacket" loading="lazy" decoding="async" width="600" height="750"></a>
+        <a href="#photo10" id="thumb10"><img src="photo10-thumb.jpg" alt="Sheyda singing with her eyes closed at a microphone" loading="lazy" decoding="async" width="600" height="750"></a>
       </div>
     </section>
 
@@ -169,8 +191,10 @@
     <section id="news">
       <h2>News</h2>
 
-      <!-- Copy this whole <article> block to add another update -->
-      <article class="news-card">
+      <!-- Copy this whole <article> block to add another update.
+           This placeholder is hidden from visitors and Google: when you write a real update,
+           replace the text and delete the word "hidden" below. -->
+      <article class="news-card" hidden>
         <time datetime="2026-10-31">31 October 2026</time>
         <h3>Your news headline goes here</h3>
         <p>
@@ -274,16 +298,16 @@
 
   <!-- LARGE PHOTO VIEWS: hidden until a gallery photo is clicked.
        Clicking anywhere (or the ×) goes back to that photo in the gallery. -->
-  <div class="lightbox" id="photo1"><a href="#thumb1" class="lightbox-close" aria-label="Close">&times;</a><img src="photo1.jpg" alt="Sheyda, photo 1" loading="lazy"></div>
-  <div class="lightbox" id="photo2"><a href="#thumb2" class="lightbox-close" aria-label="Close">&times;</a><img src="photo2.jpg" alt="Sheyda, photo 2" loading="lazy"></div>
-  <div class="lightbox" id="photo3"><a href="#thumb3" class="lightbox-close" aria-label="Close">&times;</a><img src="photo3.jpg" alt="Sheyda, photo 3" loading="lazy"></div>
-  <div class="lightbox" id="photo4"><a href="#thumb4" class="lightbox-close" aria-label="Close">&times;</a><img src="photo4.jpg" alt="Sheyda, photo 4" loading="lazy"></div>
-  <div class="lightbox" id="photo5"><a href="#thumb5" class="lightbox-close" aria-label="Close">&times;</a><img src="photo5.jpg" alt="Sheyda, photo 5" loading="lazy"></div>
-  <div class="lightbox" id="photo6"><a href="#thumb6" class="lightbox-close" aria-label="Close">&times;</a><img src="photo6.jpg" alt="Sheyda, photo 6" loading="lazy"></div>
-  <div class="lightbox" id="photo7"><a href="#thumb7" class="lightbox-close" aria-label="Close">&times;</a><img src="photo7.jpg" alt="Sheyda, photo 7" loading="lazy"></div>
-  <div class="lightbox" id="photo8"><a href="#thumb8" class="lightbox-close" aria-label="Close">&times;</a><img src="photo8.jpg" alt="Sheyda, photo 8" loading="lazy"></div>
-  <div class="lightbox" id="photo9"><a href="#thumb9" class="lightbox-close" aria-label="Close">&times;</a><img src="photo9.jpg" alt="Sheyda, photo 9" loading="lazy"></div>
-  <div class="lightbox" id="photo10"><a href="#thumb10" class="lightbox-close" aria-label="Close">&times;</a><img src="photo10.jpg" alt="Sheyda, photo 10" loading="lazy"></div>
+  <div class="lightbox" id="photo1"><a href="#thumb1" class="lightbox-close" aria-label="Close">&times;</a><img src="photo1.jpg" alt="Sheyda in a black jacket looking over her shoulder" loading="lazy" decoding="async" width="1080" height="1350"></div>
+  <div class="lightbox" id="photo2"><a href="#thumb2" class="lightbox-close" aria-label="Close">&times;</a><img src="photo2.jpg" alt="Sheyda singing into a vintage microphone" loading="lazy" decoding="async" width="1080" height="1350"></div>
+  <div class="lightbox" id="photo3"><a href="#thumb3" class="lightbox-close" aria-label="Close">&times;</a><img src="photo3.jpg" alt="Sheyda covering her face with her hands in a moody studio portrait" loading="lazy" decoding="async" width="1080" height="1350"></div>
+  <div class="lightbox" id="photo4"><a href="#thumb4" class="lightbox-close" aria-label="Close">&times;</a><img src="photo4.jpg" alt="Sheyda singing at a microphone in a soft, grey-toned photo" loading="lazy" decoding="async" width="1080" height="1350"></div>
+  <div class="lightbox" id="photo5"><a href="#thumb5" class="lightbox-close" aria-label="Close">&times;</a><img src="photo5.jpg" alt="Sheyda singing passionately at a white grand piano" loading="lazy" decoding="async" width="1080" height="1350"></div>
+  <div class="lightbox" id="photo6"><a href="#thumb6" class="lightbox-close" aria-label="Close">&times;</a><img src="photo6.jpg" alt="Sheyda playing a white grand piano in front of a turquoise backdrop" loading="lazy" decoding="async" width="1080" height="1350"></div>
+  <div class="lightbox" id="photo7"><a href="#thumb7" class="lightbox-close" aria-label="Close">&times;</a><img src="photo7.jpg" alt="Sheyda playing the piano in a turquoise-lit studio" loading="lazy" decoding="async" width="1080" height="1350"></div>
+  <div class="lightbox" id="photo8"><a href="#thumb8" class="lightbox-close" aria-label="Close">&times;</a><img src="photo8.jpg" alt="Sheyda at a white grand piano in the studio" loading="lazy" decoding="async" width="1080" height="1350"></div>
+  <div class="lightbox" id="photo9"><a href="#thumb9" class="lightbox-close" aria-label="Close">&times;</a><img src="photo9.jpg" alt="Portrait of Sheyda with long blonde hair in a black jacket" loading="lazy" decoding="async" width="1080" height="1350"></div>
+  <div class="lightbox" id="photo10"><a href="#thumb10" class="lightbox-close" aria-label="Close">&times;</a><img src="photo10.jpg" alt="Sheyda singing with her eyes closed at a microphone" loading="lazy" decoding="async" width="1080" height="1350"></div>
 
   <!-- FOOTER -->
   <footer>
